@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from '../components/logo.svg';
+import '../components/App.css';
 
 import { connect } from 'react-redux';
 
@@ -13,21 +13,24 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={dog || logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Dog Saga</h1>
+          {
+            dog ? (
+              <p>Keep Clicking for new dog</p>
+            ) : (
+                <p>Replace the React Icon with a dog</p>
+              )
+          }
+
+          {
+            fetching ? (
+              <button disabled className="button is-primary is-loading">fetching...</button>
+            ) : (
+                <button onClick={onRequestDog} className="button is-primary"> Request a Dog</button>
+              )
+          }
+
+          {error && <p style={{ color: 'red' }}> Fuck u</p>}
         </header>
-        {dog ? (
-          <p className="App-intro">Keep Clicking for new dog</p>
-        ) : (
-            <p className="App-intro">Replace the React Icon with a dog</p>
-          )}
-
-        {fetching ? (
-          <button disabled>fetching...</button>
-        ) : (
-            <button onClick={onRequestDog}> Request a Dog</button>
-          )}
-
-        {error && <p style={{ color: 'red' }}> Fuck u</p>}
       </div>
     );
   }
